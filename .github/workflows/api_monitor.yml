@@ -1,8 +1,8 @@
 name: API Monitor
 on:
   schedule:
-    - cron: "*/14 * * * *" # Runs every 14 minutes
-  workflow_dispatch: # Allow manual runs
+    - cron: "*/14 * * * *"
+  workflow_dispatch:
 
 jobs:
   monitor:
@@ -21,6 +21,7 @@ jobs:
 
       - name: Run API Monitor
         env:
+          API_URL: ${{ secrets.API_URL }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python api_monitor.py

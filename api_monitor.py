@@ -3,17 +3,16 @@ import os
 import time
 
 
-API_URL = "https://comart-api.onrender.com/api/ratings"
+API_URL = os.getenv("API_URL") 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN") 
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 def check_api():
     try:
-        response = requests.get(API_URL, timeout=10)
+        response = requests.get(API_URL, timeout=60)
         if response.status_code != 200:
             send_alert(f"🔴 API DOWN: Status Code {response.status_code}")
         else:
-            # send_alert(f"✅ API OK: Status Code {response.status_code}")
             print(f"✅ API OK: {response.status_code}")
     except requests.exceptions.RequestException as e:
         send_alert(f"🔴 API ERROR: {str(e)}")
